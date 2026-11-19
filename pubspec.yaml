@@ -1,0 +1,8 @@
+name: bairro_em_dia_mobile
+description: Prototipo mobile navegavel do Bairro em Dia em Dart.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+dependencies:
+  web: ^1.1.1
