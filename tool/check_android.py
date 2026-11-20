@@ -30,7 +30,14 @@ def find(text, exact=True):
             if any((text == value if exact else text in value) for value in values):
                 matches.append(node)
         if matches:
-            return next((n for n in matches if n.get('clickable') == 'true'), matches[0])
+            visible = [n for n in matches if n.get('bounds') not in ('[0,0][0,0]', None)]
+            if visible:
+                return next((n for n in visible if n.get('clickable') == 'true'), visible[0])
+        if attempt in (3, 6, 9):
+            dimensions = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))
+            width, height = dimensions[-2:]
+            adb('shell', 'input', 'swipe', str(width // 2), str(height * 3 // 4),
+                str(width // 2), str(height // 3), '450')
         time.sleep(1)
     raise AssertionError('Elemento nao encontrado: ' + text)
 
