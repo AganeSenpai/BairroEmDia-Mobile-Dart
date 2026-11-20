@@ -32,7 +32,7 @@ def find(text, exact=True):
         if matches:
             visible = [n for n in matches if n.get('bounds') not in ('[0,0][0,0]', None)]
             if visible:
-                return next((n for n in visible if n.get('clickable') == 'true'), visible[0])
+                return next((n for n in visible if n.get('class') == 'android.widget.EditText'), next((n for n in visible if n.get('clickable') == 'true'), visible[0]))
         if attempt in (3, 6, 9):
             dimensions = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))
             width, height = dimensions[-2:]
@@ -53,6 +53,7 @@ def tap(text, exact=True):
 
 
 def fill(placeholder, value):
+    adb('shell', 'input', 'swipe', '540', '500', '540', '1400', '450')
     tap(placeholder)
     adb('shell', 'input', 'text', value.replace(' ', '%s'))
     adb('shell', 'input', 'keyevent', 'KEYCODE_BACK')
@@ -85,9 +86,9 @@ def main():
         screenshot('04-validacao')
         tap('Selecione uma categoria')
         tap('Iluminação')
-        fill('Ex.: Poste apagado na praça', 'Poste da demonstracao Android')
-        fill('Rua, número e bairro', 'Rua Exemplo 100 Centro')
-        fill('Descreva o problema e uma referência do local',
+        fill('Título', 'Poste da demonstracao Android')
+        fill('Localização', 'Rua Exemplo 100 Centro')
+        fill('Descrição',
              'Poste apagado ha tres noites. Endereco ficticio.')
         screenshot('05-formulario-preenchido')
         tap('Enviar solicitação')
@@ -114,6 +115,7 @@ def main():
                              'formulario', 'criacao em memoria', 'filtros', 'perfil'],
         }, indent=2))
     finally:
+        screenshot('11-estado-final')
         subprocess.run(['adb', 'shell', 'pkill', '-2', 'screenrecord'], check=False)
         recorder.wait(timeout=15)
         adb('pull', '/sdcard/bairro-demo.mp4', str(OUTPUT / 'demonstracao-android.mp4'))

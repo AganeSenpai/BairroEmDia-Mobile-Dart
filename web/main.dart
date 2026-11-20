@@ -223,13 +223,13 @@ String novaSolicitacao() => '''
       </select>
     </label>
     <label class="field">Título
-      <input name="titulo" maxlength="120" required placeholder="Ex.: Poste apagado na praça" value="${seguro(rascunho['titulo']!)}">
+      <input aria-label="Título" name="titulo" maxlength="120" required placeholder="Ex.: Poste apagado na praça" value="${seguro(rascunho['titulo']!)}">
     </label>
     <label class="field">Localização
-      <input name="endereco" maxlength="250" required placeholder="Rua, número e bairro" value="${seguro(rascunho['endereco']!)}">
+      <input aria-label="Localização" name="endereco" maxlength="250" required placeholder="Rua, número e bairro" value="${seguro(rascunho['endereco']!)}">
     </label>
     <label class="field">Descrição
-      <textarea name="descricao" maxlength="2000" required placeholder="Descreva o problema e uma referência do local">${seguro(rascunho['descricao']!)}</textarea>
+      <textarea aria-label="Descrição" name="descricao" maxlength="2000" required placeholder="Descreva o problema e uma referência do local">${seguro(rascunho['descricao']!)}</textarea>
       <small>Evite incluir dados pessoais na descrição.</small>
     </label>
     <div class="notice">Sua solicitação receberá um protocolo para acompanhamento.</div>
