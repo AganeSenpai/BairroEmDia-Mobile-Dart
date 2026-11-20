@@ -5,3 +5,11 @@ build/
 node_modules/
 .openai/state/
 .openai/*.local.json
+
+android/.gradle/
+android/local.properties
+android/**/build/
+android/app/src/main/assets/
+*.apk
+*.keystore
+__pycache__/

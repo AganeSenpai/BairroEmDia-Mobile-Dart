@@ -1,23 +1,39 @@
-# Bairro em Dia • Mobile Dart
+# Bairro em Dia
 
-Protótipo mobile em Dart para moradores registrarem problemas de zeladoria urbana e acompanharem solicitações. A proposta contribui para o ODS 11 — Cidades e comunidades sustentáveis.
+Joao Vitor Valaitis Paulo RM:576724
 
-## Executar
+Protótipo para moradores registrarem problemas de zeladoria urbana e acompanharem solicitações. Relacionado ao ODS 11, Cidades e comunidades sustentáveis.
 
-Requisito: Dart SDK 3.4 ou superior.
+## Aplicativo Android
+
+A lógica e a navegação são implementadas em Dart, sem Flutter. O APK carrega o conteúdo compilado em uma WebView interna e funciona offline. A pasta `android` contém o código Android necessário para iniciar essa interface. Trata-se de um aplicativo híbrido, não de uma interface Android nativa escrita em Dart.
+
+Requisitos para compilar: Dart SDK 3.14.1, JDK 17, Android SDK 35 e Gradle 8.13.
 
 ```bash
 dart pub get
-dart run tool/build.dart
-dart run tool/serve.dart
+dart analyze
+dart run tool/prepare_android.dart
+gradle -p android assembleDebug
 ```
 
-Abra http://localhost:8081. As telas são responsivas e podem ser abertas pelo navegador em formato de celular. A lógica, a navegação e os dados estão nos arquivos Dart. HTML e CSS apresentam a interface. O build gera o arquivo que o navegador executa.
+APK: `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+Com um emulador Android iniciado ou dispositivo conectado:
+
+```bash
+adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n br.com.fiap.bairro.mobile/.MainActivity
+```
+
+Também é possível abrir a pasta `android` no Android Studio após preparar o conteúdo Dart. Configure o Gradle local 8.13 se o Android Studio solicitar a distribuição.
+
+O GitHub Actions gera o APK e executa uma verificação no emulador. O APK fica no artefato `BairroEmDia-Android-APK`. Os resultados, capturas e gravação da verificação ficam em `BairroEmDia-Android-Evidencias` quando a execução termina.
 
 ## Telas
 
-Boas-vindas, início, nova solicitação, confirmação, minhas solicitações, detalhes e perfil. Os dados são simulados e reiniciam ao recarregar a página.
+Boas-vindas, início, nova solicitação, confirmação, minhas solicitações, detalhes e perfil. Os dados são simulados e reiniciam quando a interface é recarregada. O protótipo não consome a API Java.
 
-## Entrega
+## Vídeo
 
-Integrante e turma a preencher. Link do vídeo narrado a adicionar após a gravação.
+Link a adicionar após a gravação no aplicativo instalado em emulador ou dispositivo. Confirmar com o professor a aceitação da arquitetura híbrida com WebView para o escopo solicitado em Dart sem Flutter.

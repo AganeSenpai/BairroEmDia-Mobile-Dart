@@ -16,6 +16,9 @@ final rascunho = {
 };
 
 void main() {
+  if (window.location.search.contains('android=1')) {
+    document.body!.classList.add('android-app');
+  }
   document.addEventListener('click', aoClicar.toJS);
   document.addEventListener('input', aoPreencher.toJS);
   document.addEventListener('change', aoPreencher.toJS);
